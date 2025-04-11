@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Duel</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <h1>Snake Duel</h1>
+    <canvas id="snakeCanvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+        const grid = 20;
+        let snake1 = [{x: 100, y: 100}];
+        let snake2 = [{x: 500, y: 300}];
+        let food = {x: 200, y: 200};
+        let dx1 = grid, dy1 = 0;
+        let dx2 = -grid, dy2 = 0;
+        let score1 = 0, score2 = 0;
+
+        function drawSnake(snake) {
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = i === 0 ? 'green' : 'lime';
+                ctx.fillRect(snake[i].x, snake[i].y, grid, grid);
+            }
+        }
+
+        function moveSnake(snake, dx, dy) {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+            snake.pop();
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            moveSnake(snake1, dx1, dy1);
+            moveSnake(snake2, dx2, dy2);
+
+            drawSnake(snake1);
+            drawSnake(snake2);
+
+            // Check for collisions with food
+            if (snake1[0].x === food.x && snake1[0].y === food.y) {
+                score1++;
+                snake1.push({});
+                food = {x: Math.floor(Math.random() * canvas.width / grid) * grid, y: Math.floor(Math.random() * canvas.height / grid) * grid};
+            }
+            if (snake2[0].x === food.x && snake2[0].y === food.y) {
+                score2++;
+                snake2.push({});
+                food = {x: Math.floor(Math.random() * canvas.width / grid) * grid, y: Math.floor(Math.random() * canvas.height / grid) * grid};
+            }
+
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.fillText("Player 1: " + score1, 10, 20);
+            ctx.fillText("Player 2: " + score2, canvas.width - 120, 20);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function changeDirection(event) {
+            if (event.key === 'ArrowUp') { dx1 = 0; dy1 = -grid; }
+            if (event.key === 'ArrowDown') { dx1 = 0; dy1 = grid; }
+            if (event.key === 'ArrowLeft') { dx1 = -grid; dy1 = 0; }
+            if (event.key === 'ArrowRight') { dx1 = grid; dy1 = 0; }
+
+            if (event.key === 'w') { dx2 = 0; dy2 = -grid; }
+            if (event.key === 's') { dx2 = 0; dy2 = grid; }
+            if (event.key === 'a') { dx2 = -grid; dy2 = 0; }
+            if (event.key === 'd') { dx2 = grid; dy2 = 0; }
+        }
+
+        window.addEventListener('keydown', changeDirection);
+        gameLoop();
+    </script>
+</body>
+</html>
