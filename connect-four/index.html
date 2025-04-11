@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <h1>Connect Four</h1>
+    <div class="board">
+        <!-- Dynamically generate the game grid using JavaScript -->
+    </div>
+
+    <script>
+        const rows = 6;
+        const columns = 7;
+        const board = [];
+        let currentPlayer = 'R'; // Red player starts
+
+        // Create an empty board
+        for (let row = 0; row < rows; row++) {
+            board.push([]);
+            for (let col = 0; col < columns; col++) {
+                board[row].push(null);
+            }
+        }
+
+        // Create the game grid dynamically
+        const boardElement = document.querySelector('.board');
+        for (let row = 0; row < rows; row++) {
+            const rowElement = document.createElement('div');
+            rowElement.classList.add('row');
+            for (let col = 0; col < columns; col++) {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                cellElement.dataset.row = row;
+                cellElement.dataset.col = col;
+                cellElement.onclick = () => makeMove(row, col);
+                rowElement.appendChild(cellElement);
+            }
+            boardElement.appendChild(rowElement);
+        }
+
+        function makeMove(row, col) {
+            // Find the lowest available row in the column
+            for (let i = rows - 1; i >= 0; i--) {
+                if (!board[i][col]) {
+                    board[i][col] = currentPlayer;
+                    document.querySelector(`.row:nth-child(${i + 1}) .cell:nth-child(${col + 1})`).style.backgroundColor = currentPlayer;
+                    currentPlayer = currentPlayer === 'R' ? 'Y' : 'R';
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
