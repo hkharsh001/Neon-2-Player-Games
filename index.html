@@ -1,41 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Neon 2-Player Games</title>
-    <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2128349506866106" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neon 2-Player Games</title>
+  <link rel="stylesheet" href="style/common.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- For icons -->
 </head>
 <body>
-    <header>
-        <h1>Neon 2-Player Games</h1>
-        <div class="ad-banner">
-            <ins class="adsbygoogle" style="display:block; text-align:center" data-ad-client="ca-pub-2128349506866106" data-ad-slot="9876543210" data-ad-format="auto"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-    </header>
-
-    <div class="game-grid">
-        <div class="game-card" onclick="window.location.href='tic-tac-toe/index.html'">
-            <h3>Tic Tac Toe</h3>
-        </div>
-        <div class="game-card" onclick="window.location.href='pong/index.html'">
-            <h3>Pong</h3>
-        </div>
-        <div class="game-card" onclick="window.location.href='rock-paper-scissors/index.html'">
-            <h3>Rock Paper Scissors</h3>
-        </div>
-        <div class="game-card" onclick="window.location.href='connect-four/index.html'">
-            <h3>Connect Four</h3>
-        </div>
-        <div class="game-card" onclick="window.location.href='snake-duel/index.html'">
-            <h3>Snake Duel</h3>
-        </div>
-    </div>
-
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+  <header>
+    <h1>Neon 2-Player Games</h1>
+    <audio id="background-music" src="assets/music/background-music.mp3" loop></audio>
+    <button onclick="toggleMusic()">Play/Pause Music</button>
+  </header>
+  
+  <div class="game-buttons">
+    <a href="tic-tac-toe/index.html" class="game-button neon-green">Tic Tac Toe</a>
+    <a href="rock-paper-scissors/index.html" class="game-button neon-purple">Rock Paper Scissors</a>
+    <a href="connect-four/index.html" class="game-button neon-blue">Connect Four</a>
+    <!-- Add more game buttons here -->
+  </div>
+  
+  <script>
+    function toggleMusic() {
+      const music = document.getElementById("background-music");
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+  </script>
 </body>
 </html>
